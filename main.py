@@ -37,11 +37,14 @@ def draw_blocks(window, blocks) -> None:
 
 
 keys_two_directions = False  # If player is pressing two directions at same time
+keys_jumping_before = False  # If player is pressing jump key
 
 
 def handle_keys(player) -> None:
     keys = pygame.key.get_pressed()
-    global keys_two_directions
+    global keys_two_directions, keys_jumping_before
+
+    # X Movement
 
     # Player is pressing two directions at same time
     if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and (
@@ -65,11 +68,20 @@ def handle_keys(player) -> None:
         else:
             player.stop()
 
+    # Y Movement
+    if keys[pygame.K_SPACE] or keys[pygame.K_UP] or keys[pygame.K_w]:
+        if not keys_jumping_before:
+            keys_jumping_before = True
+            player.jump()
+    else:
+        keys_jumping_before = False
+
 
 def main(window) -> None:
     clock = pygame.time.Clock()
     player = Player(0, 0, 2 * BLOCKS_SIZE, 2 * BLOCKS_SIZE, "ninja-frog")
     blocks = [Block(i * BLOCKS_SIZE, 300, BLOCKS_SIZE) for i in range(20)]
+    blocks.append(Block(BLOCKS_SIZE, 300 - BLOCKS_SIZE, BLOCKS_SIZE))
 
     run = True
     while run:
@@ -87,7 +99,7 @@ def main(window) -> None:
 
         # Player
         handle_keys(player)
-        player.loop(FPS)
+        player.loop(blocks)
         player.draw(window)
 
         pygame.display.update()
