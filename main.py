@@ -6,11 +6,13 @@ from os import listdir
 from os.path import isfile, join
 
 from player import Player
+from object import Block  # , Coin, Enemy, Flag, Flagpole, Goal, Lava, Water
 
 pygame.init()
 pygame.display.set_caption("Platformer")
 WIDTH, HEIGHT = 800, 600
 FPS = 60
+BLOCKS_SIZE = 32
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -61,7 +63,10 @@ def handle_keys(player) -> None:
 
 def main(window) -> None:
     clock = pygame.time.Clock()
-    player = Player(200, 200, 32, 32, "Ninja Frog")
+    player = Player(0, 0, 2 * BLOCKS_SIZE, 2 * BLOCKS_SIZE, "Ninja Frog")
+    block1 = Block(0, 0)
+    block2 = Block(0, BLOCKS_SIZE)
+    block3 = Block(0, 2 * BLOCKS_SIZE)
 
     run = True
     while run:
@@ -73,6 +78,11 @@ def main(window) -> None:
 
         # Background
         draw_background(window, "Green.png")
+
+        # Blocks
+        block1.draw(window)
+        block2.draw(window)
+        block3.draw(window)
 
         # Player
         handle_keys(player)

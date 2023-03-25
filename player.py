@@ -13,10 +13,11 @@ class Player(pygame.sprite.Sprite):
         self.x_vel = 0
         self.y_vel = 0
         self.on_ground = True
+        self.mask = None
 
         self.direction = "right"
         self.animation_count = 0
-        self.sprites = sprite.load_sprites("Main Characters", skin, 32, 32, True)
+        self.sprites = sprite.load_sprites("Main Characters", skin, width, height, True)
         self.sprite = self.sprites["Idle_" + self.direction][0]
 
     def move(self, dx, dy) -> None:
@@ -64,8 +65,12 @@ class Player(pygame.sprite.Sprite):
             len(self.sprites[sprite_id]) * self.ANIMATION_DELAY
         )
         sprite_index = self.animation_count // self.ANIMATION_DELAY
-
         self.sprite = self.sprites[sprite_id][sprite_index]
+        self.update()
+
+    def update(self) -> None:
+        self.rect = self.sprite.get_rect(topleft=(self.rect.x, self.rect.y))
+        self.mask = pygame.mask.from_surface(self.sprite)
 
     def draw(self, window) -> None:
         """pygame.draw.rect(window, (255, 0, 0), self.rect)"""
