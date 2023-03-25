@@ -3,6 +3,7 @@ import pygame
 
 class Player(pygame.sprite.Sprite):
     PLAYER_SPEED = 5
+    GRAVITY = 1
 
     def __init__(self, x, y, width, height) -> None:
         super().__init__()
@@ -34,6 +35,9 @@ class Player(pygame.sprite.Sprite):
         self.x_vel = 0
 
     def loop(self, fps) -> None:
+        if not self.on_ground:
+            self.y_vel = min(10, self.y_vel + self.GRAVITY)
+
         self.move(self.x_vel, self.y_vel)
 
     def draw(self, window) -> None:
