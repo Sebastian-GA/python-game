@@ -6,6 +6,7 @@ class Player(pygame.sprite.Sprite):
     X_SPEED = 5
     GRAVITY = 1
     JUMP_SPEED = 13
+    MAX_JUMP_COUNT = 2
     ANIMATION_DELAY = 3
 
     def __init__(self, x, y, width, height, skin) -> None:
@@ -84,7 +85,7 @@ class Player(pygame.sprite.Sprite):
             self.x_vel = 0
 
     def jump(self) -> None:
-        if self.jump_count < 2:
+        if self.jump_count < self.MAX_JUMP_COUNT:
             self.jump_count += 1
             self.y_vel = -round(self.JUMP_SPEED * (1 + (1 - self.jump_count) * 0.2))
             self.animation_count = 0
