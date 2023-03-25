@@ -138,9 +138,12 @@ class Player(pygame.sprite.Sprite):
         self.sprite = self.sprites[sprite_id][sprite_index]
         self.mask = pygame.mask.from_surface(self.sprite)
 
-    def draw(self, window) -> None:
-        """ pygame.draw.rect(window, (255, 0, 0), self.rect) """
+    def draw(self, window, offset_x) -> None:
+        """pygame.draw.rect(window, (255, 0, 0), self.rect)"""
         window.blit(
             self.sprite,
-            (self.rect.x - self.width * (1 / 4), self.rect.y - self.height * (1 / 4)),
+            (
+                self.rect.x - self.width * (1 / 4) - offset_x,
+                self.rect.y - self.height * (1 / 4),
+            ),
         )  # Center the sprite on the hitbox

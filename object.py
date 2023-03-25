@@ -13,8 +13,8 @@ class Object(pygame.sprite.Sprite):
         self.height = height
         self.name = name
 
-    def draw(self, window) -> None:
-        window.blit(self.sprite, (self.rect.x, self.rect.y))
+    def draw(self, window, offset_x) -> None:
+        window.blit(self.sprite, (self.rect.x - offset_x, self.rect.y))
 
 
 class Block(Object):
