@@ -36,7 +36,7 @@ def load_sprites(dir1, dir2, width, height, direction=False):
 
 
 def load_blocks(size, skin="grass"):
-    path = join("assets", "Terrain", "Terrain.png")
+    path = join("assets", "terrain", "terrain.png")
     image = pygame.image.load(path).convert_alpha()
 
     all_sprites = {}

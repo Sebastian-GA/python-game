@@ -18,7 +18,7 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 
 
 def draw_background(window, color) -> None:
-    bg_image = pygame.image.load(join("assets", "Backgrounds", color))
+    bg_image = pygame.image.load(join("assets", "backgrounds", color))
     _, _, width, height = bg_image.get_rect()
 
     for x in range(0, WIDTH, width):  # Fill screen with background tiles
@@ -68,7 +68,7 @@ def handle_keys(player) -> None:
 
 def main(window) -> None:
     clock = pygame.time.Clock()
-    player = Player(0, 0, 2 * BLOCKS_SIZE, 2 * BLOCKS_SIZE, "Ninja Frog")
+    player = Player(0, 0, 2 * BLOCKS_SIZE, 2 * BLOCKS_SIZE, "ninja-frog")
     blocks = [Block(i * BLOCKS_SIZE, 300, BLOCKS_SIZE) for i in range(20)]
 
     run = True
@@ -80,7 +80,7 @@ def main(window) -> None:
                 break
 
         # Background
-        draw_background(window, "Green.png")
+        draw_background(window, "green.png")
 
         # Blocks
         draw_blocks(window, blocks)

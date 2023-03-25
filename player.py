@@ -17,8 +17,8 @@ class Player(pygame.sprite.Sprite):
 
         self.direction = "right"
         self.animation_count = 0
-        self.sprites = sprite.load_sprites("Main Characters", skin, width, height, True)
-        self.sprite = self.sprites["Idle_" + self.direction][0]
+        self.sprites = sprite.load_sprites("main-characters", skin, width, height, True)
+        self.sprite = self.sprites["idle_" + self.direction][0]
 
     def move(self, dx, dy) -> None:
         self.rect.x += dx
@@ -51,14 +51,14 @@ class Player(pygame.sprite.Sprite):
 
     def update_sprite(self) -> None:
         if self.y_vel < 0:
-            status = "Jump"
+            status = "jump"
         elif self.y_vel > 0:
-            status = "Fall"
+            status = "fall"
         else:  # On Ground
             if self.x_vel != 0:
-                status = "Run"
+                status = "run"
             else:
-                status = "Idle"
+                status = "idle"
 
         sprite_id = f"{status}_{self.direction}"
         self.animation_count = (self.animation_count + 1) % (
