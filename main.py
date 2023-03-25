@@ -29,6 +29,36 @@ def draw_tiles(window, pos_list, image) -> None:
         window.blit(image, pos)
 
 
+two_directions = False  # If player is pressing two directions at same time
+
+
+def handle_keys(player) -> None:
+    keys = pygame.key.get_pressed()
+    global two_directions
+
+    # Player is pressing two directions at same time
+    if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and (
+        keys[pygame.K_RIGHT] or keys[pygame.K_d]
+    ):
+        if not two_directions:  # If player was not pressing two directions before
+            two_directions = True  # Set two_directions flag to True
+            # And move to opposite direction of last direction
+            last_direction = player.direction
+            if last_direction == "left":
+                player.move_right()
+            else:
+                player.move_left()
+    else:
+        # Player is pressing only one direction
+        two_directions = False
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:  # Left
+            player.move_left()
+        elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:  # Right
+            player.move_right()
+        else:
+            player.stop()
+
+
 def main(window) -> None:
     clock = pygame.time.Clock()
     player = Player(0, 0, 50, 50)
@@ -46,6 +76,7 @@ def main(window) -> None:
         draw_background(window, "Green.png")
 
         # Player
+        handle_keys(player)
         player.loop(FPS)
         player.draw(window)
 
