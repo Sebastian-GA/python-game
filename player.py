@@ -5,7 +5,7 @@ import sprite
 class Player(pygame.sprite.Sprite):
     PLAYER_SPEED = 5
     GRAVITY = 1
-    ANIMATION_SPEED = 3
+    ANIMATION_DELAY = 3
 
     def __init__(self, x, y, width, height, skin) -> None:
         super().__init__()
@@ -46,8 +46,9 @@ class Player(pygame.sprite.Sprite):
             self.y_vel = min(10, self.y_vel + self.GRAVITY)
 
         self.move(self.x_vel, self.y_vel)
+        self.update_sprite()
 
-        # Update Animation
+    def update_sprite(self) -> None:
         if self.y_vel < 0:
             status = "Jump"
         elif self.y_vel > 0:
@@ -60,9 +61,9 @@ class Player(pygame.sprite.Sprite):
 
         sprite_id = f"{status}_{self.direction}"
         self.animation_count = (self.animation_count + 1) % (
-            len(self.sprites[sprite_id]) * self.ANIMATION_SPEED
+            len(self.sprites[sprite_id]) * self.ANIMATION_DELAY
         )
-        sprite_index = self.animation_count // self.ANIMATION_SPEED
+        sprite_index = self.animation_count // self.ANIMATION_DELAY
 
         self.sprite = self.sprites[sprite_id][sprite_index]
 
