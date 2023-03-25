@@ -31,6 +31,11 @@ def draw_tiles(window, pos_list, image) -> None:
         window.blit(image, pos)
 
 
+def draw_blocks(window, blocks) -> None:
+    for block in blocks:
+        block.draw(window)
+
+
 keys_two_directions = False  # If player is pressing two directions at same time
 
 
@@ -64,9 +69,7 @@ def handle_keys(player) -> None:
 def main(window) -> None:
     clock = pygame.time.Clock()
     player = Player(0, 0, 2 * BLOCKS_SIZE, 2 * BLOCKS_SIZE, "Ninja Frog")
-    block1 = Block(0, 0)
-    block2 = Block(0, BLOCKS_SIZE)
-    block3 = Block(0, 2 * BLOCKS_SIZE)
+    blocks = [Block(i * BLOCKS_SIZE, 300, BLOCKS_SIZE) for i in range(20)]
 
     run = True
     while run:
@@ -80,9 +83,7 @@ def main(window) -> None:
         draw_background(window, "Green.png")
 
         # Blocks
-        block1.draw(window)
-        block2.draw(window)
-        block3.draw(window)
+        draw_blocks(window, blocks)
 
         # Player
         handle_keys(player)
