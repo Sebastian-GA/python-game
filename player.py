@@ -96,7 +96,7 @@ class Player(pygame.sprite.Sprite):
         self.animation_count = 0
 
     def hit_head(self) -> None:
-        self.y_vel = -0.8 * self.y_vel
+        self.y_vel = -round(0.8 * self.y_vel)
         self.animation_count = 0
         """ self.jump_count = 0 """
 
