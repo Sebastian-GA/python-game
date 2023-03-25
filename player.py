@@ -118,7 +118,10 @@ class Player(pygame.sprite.Sprite):
 
     def update_sprite(self) -> None:
         if self.y_vel < 0:
-            status = "jump"
+            if self.jump_count == 2:
+                status = "double-jump"
+            else:
+                status = "jump"
         elif self.y_vel > 0:
             status = "fall"
         else:  # On Ground
@@ -136,7 +139,7 @@ class Player(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.sprite)
 
     def draw(self, window) -> None:
-        pygame.draw.rect(window, (255, 0, 0), self.rect)
+        """ pygame.draw.rect(window, (255, 0, 0), self.rect) """
         window.blit(
             self.sprite,
             (self.rect.x - self.width * (1 / 4), self.rect.y - self.height * (1 / 4)),

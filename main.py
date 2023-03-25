@@ -79,7 +79,7 @@ def handle_keys(player) -> None:
 
 def main(window) -> None:
     clock = pygame.time.Clock()
-    player = Player(0, 0, 2 * BLOCKS_SIZE, 2 * BLOCKS_SIZE, "ninja-frog")
+    player = Player(0, 0, 2 * BLOCKS_SIZE, 2 * BLOCKS_SIZE, "mask-dude")
     blocks = [Block(i * BLOCKS_SIZE, 300, BLOCKS_SIZE) for i in range(20)]
     blocks.append(Block(BLOCKS_SIZE, 300 - BLOCKS_SIZE, BLOCKS_SIZE))
 
