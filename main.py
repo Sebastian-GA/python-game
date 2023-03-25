@@ -29,19 +29,19 @@ def draw_tiles(window, pos_list, image) -> None:
         window.blit(image, pos)
 
 
-two_directions = False  # If player is pressing two directions at same time
+keys_two_directions = False  # If player is pressing two directions at same time
 
 
 def handle_keys(player) -> None:
     keys = pygame.key.get_pressed()
-    global two_directions
+    global keys_two_directions
 
     # Player is pressing two directions at same time
     if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and (
         keys[pygame.K_RIGHT] or keys[pygame.K_d]
     ):
-        if not two_directions:  # If player was not pressing two directions before
-            two_directions = True  # Set two_directions flag to True
+        if not keys_two_directions:  # If player was not pressing two directions before
+            keys_two_directions = True  # Set two_directions flag to True
             # And move to opposite direction of last direction
             last_direction = player.direction
             if last_direction == "left":
@@ -50,7 +50,7 @@ def handle_keys(player) -> None:
                 player.move_left()
     else:
         # Player is pressing only one direction
-        two_directions = False
+        keys_two_directions = False
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:  # Left
             player.move_left()
         elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:  # Right
@@ -61,7 +61,7 @@ def handle_keys(player) -> None:
 
 def main(window) -> None:
     clock = pygame.time.Clock()
-    player = Player(0, 0, 50, 50)
+    player = Player(200, 200, 32, 32, "Ninja Frog")
 
     run = True
     while run:
@@ -72,7 +72,6 @@ def main(window) -> None:
                 break
 
         # Background
-        window.fill((255, 255, 255))
         draw_background(window, "Green.png")
 
         # Player
